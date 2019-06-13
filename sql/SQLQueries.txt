@@ -1,0 +1,42 @@
+create database ocpp;
+
+use ocpp;
+
+CREATE TABLE ChargePoint(
+	ChargePointId int auto_increment primary key,
+    	AddressLine1 varchar(50) not null,
+    AddressLine2 varchar(50) not null,
+    City char(20) not null,
+    State char(20) not null,
+    PostalCode int(6) not null,
+    Latitude decimal(20) not null,
+    Longitude decimal(20) not null
+);
+
+CREATE TABLE Users(
+    FirstName char(20) NOT NULL,
+    LastName char(20) NOT NULL,
+    email varchar(100) NOT NULL,
+    phone int(10) PRIMARY KEY,
+    isFlagged bool 
+);
+
+CREATE TABLE  Transactions(
+	TransactionId int auto_increment primary key ,
+    ChargePointId int not null,
+    TranscationDate Date not null,
+    StartTime timestamp not null,
+    EndTime timestamp not null,
+    Heartbeat int not null,
+    Price decimal not null,
+    constraint fk_1 foreign key (ChargePointId) REFERENCES ChargePoint(ChargePointId)
+);
+
+
+CREATE TABLE Reservations(
+	ReservationId int auto_increment primary key,
+    FirstName char(20) NOT NULL,
+    ReservationDate Date not null,
+    StartTime timestamp not null,
+    EndTime timestamp not null
+);
